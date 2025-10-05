@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  mqtt-broker:
+    image: eclipse-mosquitto:2.0
+    container_name: mqtt-broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+
+  publisher:
+    build: ./publisher
+    container_name: publisher
+    depends_on:
+      - mqtt-broker
+    environment:
+      - MQTT_BROKER=mqtt-broker
+      - ASPNETCORE_URLS=http://+:8080
+    ports:
+      - "5000:8080"
+
+  subscriber:
+    build: ./subscriber
+    container_name: subscriber
+    depends_on:
+      - mqtt-broker
+    environment:
+      - MQTT_BROKER=mqtt-broker
+      - ASPNETCORE_URLS=http://+:8080
+    ports:
+      - "5001:8080"
