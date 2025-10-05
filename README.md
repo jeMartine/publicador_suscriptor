@@ -55,27 +55,9 @@ El proyecto aplica el **patrón Publicador–Suscriptor** de la siguiente forma:
 
 ---
 
-## 🧱 Estructura del Proyecto
-
-Taller 2 Arqui/
-├── mqtt/ # Configuración del broker Mosquitto
-├── publisher/
-│ ├── app_publisher/ # Frontend en Svelte
-│ ├── BancoTurnosApp/ # Backend en .NET 9
-│ └── Dockerfile # Imagen del publicador
-├── subscriber/
-│ ├── app_subscriber/ # Frontend en Svelte
-│ ├── sbBancoTurnos/ # Backend en .NET 9
-│ └── Dockerfile # Imagen del suscriptor
-├── docker-compose.yml # Orquestación de los servicios
-└── README.md
-
-
----
-
 ## ⚙️ Requisitos Previos
 
-
+---
 - [Docker Desktop](https://www.docker.com/)
 - [Git](https://git-scm.com/)
 - (Opcional) [Visual Studio Code](https://code.visualstudio.com/) o [Visual Studio 2022](https://visualstudio.microsoft.com/) para edición del código.
@@ -89,17 +71,22 @@ Taller 2 Arqui/
 ```bash
 git clone https://github.com/tu_usuario/taller2-arquitectura.git
 cd taller2-arquitectura
+```bash
 2️⃣ Construir y levantar los contenedores
-bash
-Copiar código
+
+```bash
 docker-compose up --build
+
+```bash
 Esto levantará tres contenedores:
 
+---
 mqtt-broker: servicio Mosquitto en el puerto 1883 (TCP) y 9001 (WebSocket)
 
 publisher: backend y frontend del publicador en el puerto 5000
 
 subscriber: backend y frontend del suscriptor en el puerto 5001
+---
 
 🌐 Acceso a los Servicios
 Servicio	URL	Descripción
@@ -137,7 +124,3 @@ Proyecto académico desarrollado para la materia Arquitectura de Software, demos
 📝 Licencia
 Este proyecto se distribuye bajo la licencia MIT.
 Puedes usarlo, modificarlo y distribuirlo libremente dando crédito al autor original.
-
-yaml
----
-
