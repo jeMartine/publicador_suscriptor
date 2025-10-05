@@ -1,0 +1,6 @@
+@BancoTurnosApp_HostAddress = http://localhost:5039
+
+GET {{BancoTurnosApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
