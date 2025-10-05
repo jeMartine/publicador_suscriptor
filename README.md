@@ -68,16 +68,17 @@ El proyecto aplica el **patrón Publicador–Suscriptor** de la siguiente forma:
 
 ### 1️⃣ Clonar el repositorio
 
-```bash
+```console
 git clone https://github.com/tu_usuario/taller2-arquitectura.git
 cd taller2-arquitectura
-```bash
+```
+
 2️⃣ Construir y levantar los contenedores
 
 ```bash
 docker-compose up --build
 
-```bash
+```
 Esto levantará tres contenedores:
 
 ---
@@ -86,15 +87,17 @@ mqtt-broker: servicio Mosquitto en el puerto 1883 (TCP) y 9001 (WebSocket)
 publisher: backend y frontend del publicador en el puerto 5000
 
 subscriber: backend y frontend del suscriptor en el puerto 5001
----
 
-🌐 Acceso a los Servicios
+
+## 🌐 Acceso a los Servicios
 Servicio	URL	Descripción
 Frontend Publicador	http://localhost:5000	Interfaz para registrar nuevos turnos.
+
 Frontend Suscriptor	http://localhost:5001	Interfaz que muestra en tiempo real los turnos asignados.
+
 MQTT Broker	localhost:1883 o localhost:9001	Canal de comunicación entre publicador y suscriptor.
 
-🧠 Funcionamiento del Patrón
+## 🧠 Funcionamiento del Patrón
 Publicador:
 Cuando un cliente solicita un turno, el publicador publica un mensaje con los datos del nuevo turno (por ejemplo, { "codigo": "TG01", "servicio": "Trámites Generales" }).
 
@@ -104,23 +107,19 @@ Recibe el mensaje y lo reenvía a todos los suscriptores conectados al tópico c
 Suscriptor:
 Escucha el tópico y actualiza su vista mostrando el nuevo turno disponible.
 
-🧩 Tecnologías Utilizadas
-.NET 9 (ASP.NET Core Minimal APIs)
+## 🧩 Tecnologías Utilizadas
+- .NET 9 (ASP.NET Core Minimal APIs)
+- Svelte (Frontend Framework)
+- Docker y Docker Compose
+- Mosquitto (MQTT Broker)
+- C# / JavaScript / HTML / CSS
 
-Svelte (Frontend Framework)
-
-Docker y Docker Compose
-
-Mosquitto (MQTT Broker)
-
-C# / JavaScript / HTML / CSS
-
-🧪 Pruebas
+## 🧪 Pruebas
 Puedes verificar el funcionamiento conectando un cliente MQTT (por ejemplo, MQTT Explorer o mosquitto_sub) al broker local (localhost:1883) y suscribiéndote al tópico de turnos.
 
-📚 Créditos
+## 📚 Créditos
 Proyecto académico desarrollado para la materia Arquitectura de Software, demostrando la aplicación del patrón Publicador–Suscriptor en un sistema distribuido real.
 
-📝 Licencia
+## 📝 Licencia
 Este proyecto se distribuye bajo la licencia MIT.
 Puedes usarlo, modificarlo y distribuirlo libremente dando crédito al autor original.
