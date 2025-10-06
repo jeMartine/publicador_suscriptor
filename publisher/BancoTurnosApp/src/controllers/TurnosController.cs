@@ -9,10 +9,12 @@ namespace BancoTurnosApp.src.controllers
     public class TurnosController : ControllerBase
     {
         private readonly ITurnoService _turnoService;
+        private readonly MqttPublisherService _mqttPublisher;
 
-        public TurnosController(ITurnoService turnoService)
+        public TurnosController(ITurnoService turnoService, MqttPublisherService mqttPublisher)
         {
             _turnoService = turnoService;
+            _mqttPublisher = mqttPublisher;
         }
 
         // GET: api/turnos
@@ -48,6 +50,10 @@ namespace BancoTurnosApp.src.controllers
             try
             {
                 var nuevoTurno = await _turnoService.CrearTurnoConClienteAsync(request.Cliente, request.CodigoServicio);
+
+                // 🔹 Publicar mensaje MQTT de nuevo turno
+                await _mqttPublisher.PublishTurnoNuevoAsync(nuevoTurno);
+
                 return CreatedAtAction(nameof(GetByCodigo), new { codigo = nuevoTurno.Codigo }, nuevoTurno);
             }
             catch (InvalidOperationException ex)
@@ -65,6 +71,10 @@ namespace BancoTurnosApp.src.controllers
                 var turno = await _turnoService.CambiarEstadoTurnoAsync(codigo, request.NuevoEstado);
                 if (turno == null)
                     return NotFound($"No se encontró turno con código {codigo}");
+
+                // 🔹 Publicar mensaje MQTT de actualización
+                await _mqttPublisher.PublishTurnoActualizadoAsync(turno);
+
                 return Ok(turno);
             }
             catch (InvalidOperationException ex)

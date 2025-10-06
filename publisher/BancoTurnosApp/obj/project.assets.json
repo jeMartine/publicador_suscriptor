@@ -1024,6 +1024,19 @@
           "buildTransitive/Mono.TextTemplating.targets": {}
         }
       },
+      "MQTTnet/4.3.5.1141": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/MQTTnet.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/MQTTnet.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/9.0.6": {
         "type": "package",
         "dependencies": {
@@ -3913,6 +3926,41 @@
         "readme.md"
       ]
     },
+    "MQTTnet/4.3.5.1141": {
+      "sha512": "1wrlAOiA8y+Cx8tSb7rj+ZfSg+0iO/Y37ijT9ST4ot8oJFklLlcYQhaqe7hUbG5Q0t2Vlj7wvUv/RcPcN3yI9w==",
+      "type": "package",
+      "path": "mqttnet/4.3.5.1141",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/MQTTnet.dll",
+        "lib/net452/MQTTnet.xml",
+        "lib/net461/MQTTnet.dll",
+        "lib/net461/MQTTnet.xml",
+        "lib/net48/MQTTnet.dll",
+        "lib/net48/MQTTnet.xml",
+        "lib/net5.0/MQTTnet.dll",
+        "lib/net5.0/MQTTnet.xml",
+        "lib/net6.0/MQTTnet.dll",
+        "lib/net6.0/MQTTnet.xml",
+        "lib/net7.0/MQTTnet.dll",
+        "lib/net7.0/MQTTnet.xml",
+        "lib/netcoreapp3.1/MQTTnet.dll",
+        "lib/netcoreapp3.1/MQTTnet.xml",
+        "lib/netstandard1.3/MQTTnet.dll",
+        "lib/netstandard1.3/MQTTnet.xml",
+        "lib/netstandard2.0/MQTTnet.dll",
+        "lib/netstandard2.0/MQTTnet.xml",
+        "lib/netstandard2.1/MQTTnet.dll",
+        "lib/netstandard2.1/MQTTnet.xml",
+        "lib/uap10.0.10240/MQTTnet.dll",
+        "lib/uap10.0.10240/MQTTnet.pri",
+        "lib/uap10.0.10240/MQTTnet.xml",
+        "mqttnet.4.3.5.1141.nupkg.sha512",
+        "mqttnet.nuspec",
+        "nuget.png"
+      ]
+    },
     "Swashbuckle.AspNetCore/9.0.6": {
       "sha512": "q/UfEAgrk6qQyjHXgsW9ILw0YZLfmPtWUY4wYijliX6supozC+TkzU0G6FTnn/dPYxnChjM8g8lHjWHF6VKy+A==",
       "type": "package",
@@ -5170,6 +5218,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "MQTTnet >= 4.3.5",
       "Microsoft.AspNetCore.OpenApi >= 9.0.0",
       "Microsoft.EntityFrameworkCore >= 9.0.9",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.9",
@@ -5220,6 +5269,10 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "MQTTnet": {
+            "target": "Package",
+            "version": "[4.3.5, )"
+          },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[9.0.0, )"
@@ -5265,5 +5318,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "BancoTurnosApp depende de MQTTnet (>= 4.3.5), pero no se encontró MQTTnet 4.3.5. MQTTnet 4.3.5.1141 se resolvió en su lugar.",
+      "libraryId": "MQTTnet",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    }
+  ]
 }

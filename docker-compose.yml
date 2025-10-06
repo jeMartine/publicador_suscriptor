@@ -8,6 +8,12 @@ services:
     ports:
       - "1883:1883"
       - "9001:9001"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+    networks:
+      - banco-publisher-net
 
   #---- SQL Server for publisher ----
   sql-publisher:
@@ -98,3 +104,5 @@ networks:
 volumes:
   sql-publisher-data:
   sql-subscriber-data:
+  mosquitto-data:
+  mosquitto-log:

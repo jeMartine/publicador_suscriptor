@@ -6,6 +6,6 @@ namespace sbBancoTurnos.src.models{
         public required string Nombre { get; set; }
         public required string Descripcion { get; set; }
 
-        public string TopicMQTT => $"banco/servicios/{Codigo.ToLower()}";
+        public string TopicMQTT { get; set; }
     }
 }

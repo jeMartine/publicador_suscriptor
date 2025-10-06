@@ -30,6 +30,11 @@ builder.Services.AddScoped<IServicioService, ServicioService>();
 builder.Services.AddScoped<ITurnoRepository, TurnoRepository>();
 builder.Services.AddScoped<ITurnoService, TurnoService>();
 
+//mosquitto
+builder.Services.AddHostedService<MqttSubscriberService>();
+
+
+
 var app = builder.Build();
 
 // CREAR BASE DE DATOS AUTOMÁTICAMENTE

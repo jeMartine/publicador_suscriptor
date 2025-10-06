@@ -30,7 +30,13 @@ builder.Services.AddScoped<IServicioService, ServicioService>();
 builder.Services.AddScoped<ITurnoRepository, TurnoRepository>();
 builder.Services.AddScoped<ITurnoService, TurnoService>();
 
+//mosquitto
+builder.Services.AddSingleton<MqttPublisherService>();
+builder.Services.AddSingleton<MqttPublisherService>();
+
+
 var app = builder.Build();
+
 
 // ✨ CREAR BASE DE DATOS AUTOMÁTICAMENTE ✨
 using (var scope = app.Services.CreateScope())
@@ -39,10 +45,10 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<AppDbContext>();
-        
+
         // Esto crea la base de datos y las tablas si no existen
         context.Database.EnsureCreated();
-        
+
         Console.WriteLine("✅ Base de datos creada/verificada exitosamente");
     }
     catch (Exception ex)
