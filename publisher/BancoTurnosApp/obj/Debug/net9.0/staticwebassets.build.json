@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "OvvMTfOnpAYIz5GHbkp1peG49eoY/VzqSiC9dRZI9Z8=",
+  "Source": "BancoTurnosApp",
+  "BasePath": "_content/BancoTurnosApp",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
