@@ -1,5 +1,5 @@
 <script>
-    import FormularioTurno from './lib/components/FormularioTurno.svelte';
+    import FormularioTurno from "../lib/components/FormularioTurno.svelte";
 </script>
 
 <main>

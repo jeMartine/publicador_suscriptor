@@ -40,8 +40,6 @@ services:
         condition: service_healthy
       mqtt-broker:
         condition: service_started
-        
-
     environment:
       - MQTT_BROKER=mqtt-broker
       - ASPNETCORE_URLS=http://+:8080

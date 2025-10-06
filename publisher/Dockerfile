@@ -2,6 +2,7 @@
 FROM node:20 AS frontend-build
 WORKDIR /app
 COPY app_publisher/package*.json ./
+ENV NODE_ENV=development
 RUN npm install
 COPY app_publisher/ .
 RUN npm run build
@@ -23,7 +24,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 
 COPY --from=build /app/out .
-COPY --from=frontend-build /app/dist ./wwwroot
+COPY --from=frontend-build /app/build ./wwwroot
+
 
 # Script de inicio con reintentos
 COPY --from=build /src/BancoTurnosApp/docker-entrypoint.sh /docker-entrypoint.sh

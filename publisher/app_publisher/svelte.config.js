@@ -1,8 +1,25 @@
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+import adapter from '@sveltejs/adapter-static'; // ⬅️ CAMBIO CLAVE: Usamos el adaptador estático
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
-/** @type {import("@sveltejs/vite-plugin-svelte").SvelteConfig} */
-export default {
-  // Consult https://svelte.dev/docs#compile-time-svelte-preprocess
-  // for more information about preprocessors
-  preprocess: vitePreprocess(),
-}
+const config = {
+	preprocess: vitePreprocess(),
+	kit: {
+		adapter: adapter({
+            // Directorio donde se generarán los archivos estáticos
+			pages: 'build', 
+			assets: 'build',
+            // CRUCIAL: Esto le dice al servidor (tu .NET backend) que si una ruta 
+            // no existe (ej. /turnos/123), devuelva el index.html principal, 
+            // permitiendo a SvelteKit manejar el routing en el lado del cliente.
+			fallback: 'index.html', 
+			precompress: false, // Generalmente no se necesita si .NET lo maneja
+			strict: true
+		}),
+		alias: {
+			$components: './src/components',
+			$lib: './src/lib'
+		}
+	}
+};
+
+export default config;

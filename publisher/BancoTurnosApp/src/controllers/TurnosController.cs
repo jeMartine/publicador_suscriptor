@@ -41,13 +41,13 @@ namespace BancoTurnosApp.src.controllers
             return Ok(turnos);
         }
 
-        // POST: api/turnos?cedulaCliente=123&codigoServicio=TG
+        // POST: api/turnos
         [HttpPost]
-        public async Task<ActionResult<Turno>> Create([FromQuery] string cedulaCliente, [FromQuery] string codigoServicio)
+        public async Task<ActionResult<Turno>> Create([FromBody] CrearTurnoRequest request)
         {
             try
             {
-                var nuevoTurno = await _turnoService.CrearTurnoAsync(cedulaCliente, codigoServicio);
+                var nuevoTurno = await _turnoService.CrearTurnoConClienteAsync(request.Cliente, request.CodigoServicio);
                 return CreatedAtAction(nameof(GetByCodigo), new { codigo = nuevoTurno.Codigo }, nuevoTurno);
             }
             catch (InvalidOperationException ex)
@@ -56,13 +56,13 @@ namespace BancoTurnosApp.src.controllers
             }
         }
 
-        // PUT: api/turnos/{codigo}/estado?nuevoEstado=Atendiendo
+        // PUT: api/turnos/{codigo}/estado
         [HttpPut("{codigo}/estado")]
-        public async Task<ActionResult<Turno>> CambiarEstado(string codigo, [FromQuery] EstadoTurno nuevoEstado)
+        public async Task<ActionResult<Turno>> CambiarEstado(string codigo, [FromBody] CambiarEstadoRequest request)
         {
             try
             {
-                var turno = await _turnoService.CambiarEstadoTurnoAsync(codigo, nuevoEstado);
+                var turno = await _turnoService.CambiarEstadoTurnoAsync(codigo, request.NuevoEstado);
                 if (turno == null)
                     return NotFound($"No se encontró turno con código {codigo}");
                 return Ok(turno);
@@ -72,5 +72,24 @@ namespace BancoTurnosApp.src.controllers
                 return BadRequest(ex.Message);
             }
         }
+    }
+
+    // Clases auxiliares para recibir JSON
+    public class CrearTurnoRequest
+    {
+        public required ClienteRequest Cliente { get; set; }
+        public required string CodigoServicio { get; set; }
+    }
+
+    public class ClienteRequest
+    {
+        public required string Cedula { get; set; }
+        public required string Nombre { get; set; }
+        public required bool RequiereAsistencia { get; set; }
+    }
+
+    public class CambiarEstadoRequest
+    {
+        public required EstadoTurno NuevoEstado { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 using BancoTurnosApp.src.models;
 using BancoTurnosApp.src.repositories;
+using BancoTurnosApp.src.controllers;
 
 namespace BancoTurnosApp.src.services
 {
@@ -7,6 +8,7 @@ namespace BancoTurnosApp.src.services
     {
         Task<IEnumerable<Turno>> GetAllTurnosAsync();
         Task<Turno> CrearTurnoAsync(string cedulaCliente, string codigoServicio);
+        Task<Turno> CrearTurnoConClienteAsync(ClienteRequest clienteRequest, string codigoServicio);
         Task<Turno?> BuscarPorCodigoAsync(string codigo);
         Task<IEnumerable<Turno>> ObtenerTurnosPorEstadoAsync(EstadoTurno estado);
         Task<Turno?> CambiarEstadoTurnoAsync(string codigo, EstadoTurno nuevoEstado);
@@ -55,7 +57,49 @@ namespace BancoTurnosApp.src.services
             if (servicio == null)
                 throw new InvalidOperationException($"No existe servicio con código {codigoServicio}");
 
-            // Generar código del turno (ejemplo: TG01, SD02, TGA03)
+            // Generar código del turno
+            var consecutivo = await _turnoRepo.ContarTurnosPorServicioHoyAsync(servicio.Codigo) + 1;
+            var prefijo = cliente.RequiereAsistencia ? $"{servicio.Codigo}A" : servicio.Codigo;
+            var codigoTurno = $"{prefijo}{consecutivo:D2}";
+
+            var nuevoTurno = new Turno
+            {
+                Id = Guid.NewGuid().ToString(),
+                Codigo = codigoTurno,
+                FechaCreacion = DateTime.Now,
+                Cliente = cliente,
+                Servicio = servicio,
+                Estado = EstadoTurno.EnEspera
+            };
+
+            return await _turnoRepo.AddAsync(nuevoTurno);
+        }
+
+        public async Task<Turno> CrearTurnoConClienteAsync(ClienteRequest clienteRequest, string codigoServicio)
+        {
+            // Buscar o crear el cliente
+            var cliente = await _clienteRepo.GetByCedulaAsync(clienteRequest.Cedula);
+            
+            if (cliente == null)
+            {
+                // El cliente no existe, crearlo
+                cliente = new Cliente
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Cedula = clienteRequest.Cedula,
+                    Nombre = clienteRequest.Nombre,
+                    RequiereAsistencia = clienteRequest.RequiereAsistencia
+                };
+                cliente = await _clienteRepo.AddAsync(cliente);
+            }
+            // Si el cliente ya existe, lo reutilizamos tal cual está en la BD
+
+            // Validar que exista el servicio
+            var servicio = await _servicioRepo.GetByCodigoAsync(codigoServicio);
+            if (servicio == null)
+                throw new InvalidOperationException($"No existe servicio con código {codigoServicio}");
+
+            // Generar código del turno
             var consecutivo = await _turnoRepo.ContarTurnosPorServicioHoyAsync(servicio.Codigo) + 1;
             var prefijo = cliente.RequiereAsistencia ? $"{servicio.Codigo}A" : servicio.Codigo;
             var codigoTurno = $"{prefijo}{consecutivo:D2}";

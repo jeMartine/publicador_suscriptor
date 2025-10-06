@@ -65,4 +65,41 @@ app.UseAuthorization();
 // Rutas de controladores
 app.MapControllers();
 
+
+
+
+// ... código anterior
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+
+app.UseDefaultFiles(); 
+
+
+app.UseStaticFiles(); 
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+
+// Rutas de controladores (API)
+app.MapControllers();
+
+
+app.MapFallbackToFile("index.html"); 
+
+
+app.Run();
+
+
+
+
+
+
+
+
+
 app.Run();
