@@ -30,6 +30,26 @@ services:
       start_period: 10s
 
   
+  #---- SQL Server for subscriber ----
+  sql-subscriber:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql-subscriber
+    environment:
+      - SA_PASSWORD=BancoTurnos123*
+      - ACCEPT_EULA=Y
+    ports:
+      - "1434:1433" # Puerto de la BD del SUSCRIPTOR en la MÁQUINA anfitriona
+    volumes:
+      - sql-subscriber-data:/var/opt/mssql # ⬅️ Nuevo volumen para datos
+    networks:
+      - banco-publisher-net
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "BancoTurnos123*" -Q "SELECT 1" -C || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
   # ---- Publisher ----
   publisher:
   
@@ -52,20 +72,29 @@ services:
       - banco-publisher-net
 
 
+ 
   # ---- Subscriber ----
   subscriber:
     build: ./subscriber
     container_name: subscriber
     depends_on:
-      - mqtt-broker
+      sql-subscriber:
+        condition: service_healthy
+      mqtt-broker:
+        condition: service_started
     environment:
       - MQTT_BROKER=mqtt-broker
       - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Server=sql-subscriber;Database=BancoTurnosSuscriptorDB;User=sa;Password=BancoTurnos123*;TrustServerCertificate=True;
+      
     ports:
       - "5001:8080"
+    networks:
+      - banco-publisher-net
 
 networks:
   banco-publisher-net:
 
 volumes:
   sql-publisher-data:
+  sql-subscriber-data:

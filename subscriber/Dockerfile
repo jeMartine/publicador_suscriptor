@@ -25,7 +25,13 @@ WORKDIR /app
 COPY --from=build /app/out .
 COPY --from=frontend-build /app/dist ./wwwroot
 
+
+# Script de inicio con reintentos
+COPY --from=build /src/sbBancoTurnos/docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh || true
+
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
 
-ENTRYPOINT ["dotnet", "sbBancoTurnos.dll"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
+

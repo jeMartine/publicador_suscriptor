@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BancoTurnosApp", "BancoTurnosApp\BancoTurnosApp.csproj", "{319458BE-BBDF-F96C-CEE3-11403A8B1BF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{319458BE-BBDF-F96C-CEE3-11403A8B1BF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{319458BE-BBDF-F96C-CEE3-11403A8B1BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{319458BE-BBDF-F96C-CEE3-11403A8B1BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{319458BE-BBDF-F96C-CEE3-11403A8B1BF1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E2930E2-5CF0-4618-BCCA-1CB29597088F}
+	EndGlobalSection
+EndGlobal

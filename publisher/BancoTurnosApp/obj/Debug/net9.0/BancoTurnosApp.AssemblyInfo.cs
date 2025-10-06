@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BancoTurnosApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+266b8a8f18f66f121257cffd00d5b5d40219bdc3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8839099897cd783cc9126440caa409ea9bb9511c")]
 [assembly: System.Reflection.AssemblyProductAttribute("BancoTurnosApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BancoTurnosApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
