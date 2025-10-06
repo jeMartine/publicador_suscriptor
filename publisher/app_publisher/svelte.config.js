@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-static'; // ⬅️ CAMBIO CLAVE: Usamos el adaptador estático
+import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const config = {

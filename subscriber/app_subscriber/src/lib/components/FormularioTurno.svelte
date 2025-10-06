@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { turnosAPI } from '../api/turnos'; 
     import { serviciosAPI } from '../api/servicios'; 
     import { onMount } from 'svelte';
@@ -177,4 +177,4 @@
         background: #efe;
         color: #0a0;
     }
-</style>
+</style> -->

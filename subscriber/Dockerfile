@@ -2,6 +2,7 @@
 FROM node:20 AS frontend-build
 WORKDIR /app
 COPY app_subscriber/package*.json ./
+ENV NODE_ENV=development
 RUN npm install
 COPY app_subscriber/ .
 RUN npm run build
